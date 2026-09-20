@@ -46,7 +46,7 @@ by command palette, and persistent nav/footer chrome on every route.
 
 | Route | Application | Index |
 | --- | --- | --- |
-| `/` | **Operator** — desktop home, crescent moon, controls | `00` |
+| `/` | **Operator** — desktop home, starry night, controls | `00` |
 | `/identity` | **Identity** — profile, base, focus | `01` |
 | `/operations` | **Operations** — classified dossier cards | `02` |
 | `/arsenal` | **Arsenal** — tooling grid, no progress bars | `03` |
@@ -60,17 +60,21 @@ by command palette, and persistent nav/footer chrome on every route.
 
 - **Launcher** — a full-screen application grid. Open it from the nav bar, the
   footer, or the desktop home.
-- **Command palette** — press `Ctrl+K` (or `Cmd+K`).
+- **Terminal** — a working Linux shell. Press `Ctrl+K` (or `Cmd+K`), or click
+  the `term` icon in the nav. Real commands, a virtual filesystem, tab
+  completion, and history.
 
 ```
-> whoami        → /identity
-> projects      → /operations
-> arsenal       → /arsenal
-> orbit         → /orbit
-> research      → /archive
-> resume        → /resume
-> contact       → /contact
-> clear         → reset console
+> whoami      → toro
+> pwd         → /home/toro
+> ls          → identity/  operations/  arsenal/  orbit/  archive/  contact/ ...
+> cat ~/readme.txt
+> cd identity → step into a directory
+> open arsenal → navigate to the live page
+> fetch       → system info
+> help        → all commands
+> clear       → reset screen
+> exit        → close terminal
 ```
 
 - Persistent chrome — top navigation (logo, coordinates, launcher) and a
@@ -97,14 +101,14 @@ Your content lives in **`lib/data.ts`** — single source of truth:
 - Site identity, coordinates, timezone, GitHub / LinkedIn / Email / Resume URLs
 - The application grid (`APPS`, `UTILITIES`) and per-route metadata
 - Featured Operations, Arsenal, Orbit nodes, Archive collections
-- Console commands
+- The terminal's virtual filesystem (files, folder names, file contents)
 
 Edit the data, keep the silence. Swap placeholder imagery inside `public/img/`
 (`mumbai.svg`, `brutalist.svg`, `editorial.svg`) for real work when ready.
 
 Design tokens are in `app/globals.css` (`@theme`). Routes live in `app/` —
 one folder per application. Shared chrome is in `components/` (nav, footer,
-launcher, console, cursor).
+launcher, terminal, cursor).
 
 ## Performance
 

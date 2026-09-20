@@ -8,7 +8,7 @@ import { Cursor } from "@/components/cursor";
 import { Noise } from "@/components/noise";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
-import { Console } from "@/components/console";
+import { TerminalProvider } from "@/components/terminal";
 import { PageShell } from "@/components/page-shell";
 
 export const metadata: Metadata = {
@@ -69,11 +69,12 @@ export default function RootLayout({
         <ScrollProvider>
           <Cursor />
           <LauncherProvider>
-            <Nav />
-            <PageShell>{children}</PageShell>
-            <Footer />
+            <TerminalProvider>
+              <Nav />
+              <PageShell>{children}</PageShell>
+              <Footer />
+            </TerminalProvider>
           </LauncherProvider>
-          <Console />
         </ScrollProvider>
       </body>
     </html>

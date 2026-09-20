@@ -15,16 +15,18 @@
 
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
 
-  --animate-marquee: marquee 42s linear infinite;
-  --animate-float: float 9s ease-in-out infinite;
+  --animate-twinkle: twinkle 5s ease-in-out infinite;
+  --animate-shoot: shoot 13s linear infinite;
 
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.18; }
+    50% { opacity: 0.95; }
   }
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-9px); }
+  @keyframes shoot {
+    0% { transform: translateX(-90px) translateY(0); opacity: 0; }
+    5% { opacity: 0.9; }
+    14% { transform: translateX(330px) translateY(140px); opacity: 0; }
+    100% { transform: translateX(330px) translateY(140px); opacity: 0; }
   }
 }
 

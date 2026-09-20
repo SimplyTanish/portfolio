@@ -8,22 +8,9 @@ import {
   useReducedMotion,
 } from "framer-motion";
 import Link from "next/link";
-import { Moon, MoonFloat } from "@/components/moon";
+import { StarryNight } from "@/components/starry-night";
 import { SITE } from "@/lib/data";
 import { useLauncher } from "@/components/launcher";
-
-const MARQUEE = [
-  "Active Directory",
-  "Linux",
-  "Offensive Security",
-  "Infrastructure",
-  "Red Team",
-  "PWA",
-  "Kerberoasting",
-  "Postgres",
-  "Threat Modeling",
-  "Docker",
-];
 
 export function Desktop() {
   const ref = useRef<HTMLElement>(null);
@@ -34,7 +21,6 @@ export function Desktop() {
     offset: ["start start", "end start"],
   });
 
-  const moonY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -140]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 70]);
 
   return (
@@ -42,21 +28,16 @@ export function Desktop() {
       ref={ref}
       className="relative flex min-h-[100svh] flex-col overflow-hidden"
     >
+      {/* starry night */}
+      <div className="absolute inset-0 z-0">
+        <StarryNight />
+      </div>
+
       {/* metadata rail */}
-      <div className="mt-16 flex items-center justify-between border-b border-edge-soft px-6 py-3 font-mono text-[10px] uppercase tracking-[0.25em] text-ink-mute md:mx-auto md:w-full md:max-w-[1200px] md:px-10">
+      <div className="relative z-10 mt-16 flex items-center justify-between border-b border-edge-soft px-6 py-3 font-mono text-[10px] uppercase tracking-[0.25em] text-ink-mute md:mx-auto md:w-full md:max-w-[1200px] md:px-10">
         <span>System operator — {SITE.base}</span>
         <span className="hidden sm:block">{SITE.coords}</span>
       </div>
-
-      {/* moon */}
-      <motion.div
-        style={{ y: moonY }}
-        className="pointer-events-none absolute inset-x-0 top-20 z-0 flex justify-end pr-6 md:pr-[9vw]"
-      >
-        <MoonFloat>
-          <Moon />
-        </MoonFloat>
-      </motion.div>
 
       {/* desktop content */}
       <motion.div
@@ -67,7 +48,7 @@ export function Desktop() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-          className="mb-6 font-mono text-[11px] uppercase tracking-[0.3em] text-ink-soft"
+          className="flex flex-wrap items-center gap-3 font-mono text-[11px] uppercase tracking-[0.3em] text-ink-soft"
         >
           {SITE.roles.map((r, i) => (
             <span key={r} className="flex items-center gap-3">
@@ -137,37 +118,8 @@ export function Desktop() {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="mt-14 font-mono text-[10px] uppercase tracking-[0.25em] text-ink-mute"
         >
-          Navigate the grid — or press Ctrl+K
+          Navigate the grid — or press Ctrl+K for the terminal
         </motion.p>
-      </motion.div>
-
-      {/* marquee */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8, delay: 0.55 }}
-        className="relative z-10 border-t border-edge-soft"
-      >
-        <div className="flex overflow-hidden py-4">
-          <div className="flex min-w-max shrink-0 animate-marquee">
-            {[0, 1].map((i) => (
-              <div
-                key={i}
-                aria-hidden={i === 1}
-                className={`flex items-center gap-8 pr-8 font-mono text-[10px] uppercase tracking-[0.28em] text-ink-mute ${
-                  i === 1 ? "pointer-events-none select-none" : ""
-                }`}
-              >
-                {MARQUEE.map((w) => (
-                  <span key={w + i} className="flex items-center gap-8">
-                    {w}
-                    <span className="size-1 shrink-0 rounded-full bg-edge" />
-                  </span>
-                ))}
-              </div>
-            ))}
-          </div>
-        </div>
       </motion.div>
     </section>
   );
