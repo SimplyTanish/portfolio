@@ -7,8 +7,10 @@ import {
   useTransform,
   useReducedMotion,
 } from "framer-motion";
+import Link from "next/link";
 import { Moon, MoonFloat } from "@/components/moon";
 import { SITE } from "@/lib/data";
+import { useLauncher } from "@/components/launcher";
 
 const MARQUEE = [
   "Active Directory",
@@ -23,23 +25,21 @@ const MARQUEE = [
   "Docker",
 ];
 
-export function Hero() {
+export function Desktop() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+  const { open } = useLauncher();
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
 
   const moonY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -140]);
-  const moonOpacity = useTransform(scrollYProgress, [0, 0.85], [1, reduced ? 1 : 0]);
   const contentY = useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : 70]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.6], [1, reduced ? 1 : 0]);
 
   return (
     <section
       ref={ref}
-      id="hero"
       className="relative flex min-h-[100svh] flex-col overflow-hidden"
     >
       {/* metadata rail */}
@@ -50,7 +50,7 @@ export function Hero() {
 
       {/* moon */}
       <motion.div
-        style={{ y: moonY, opacity: moonOpacity }}
+        style={{ y: moonY }}
         className="pointer-events-none absolute inset-x-0 top-20 z-0 flex justify-end pr-6 md:pr-[9vw]"
       >
         <MoonFloat>
@@ -58,9 +58,9 @@ export function Hero() {
         </MoonFloat>
       </motion.div>
 
-      {/* main content */}
+      {/* desktop content */}
       <motion.div
-        style={{ y: contentY, opacity: contentOpacity }}
+        style={{ y: contentY }}
         className="relative z-10 mx-auto flex w-full max-w-[1200px] flex-1 flex-col justify-center px-6 pb-16 md:px-10"
       >
         <motion.p
@@ -69,7 +69,12 @@ export function Hero() {
           transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           className="mb-6 font-mono text-[11px] uppercase tracking-[0.3em] text-ink-soft"
         >
-          <span className="border border-edge px-2 py-1">{SITE.role.toUpperCase()}</span>
+          {SITE.roles.map((r, i) => (
+            <span key={r} className="flex items-center gap-3">
+              {i > 0 && <span className="inline-block h-px w-4 bg-edge" />}
+              <span className="border border-edge px-2 py-1">{r}</span>
+            </span>
+          ))}
         </motion.p>
 
         <motion.h1
@@ -87,7 +92,8 @@ export function Hero() {
           transition={{ duration: 0.45, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
           className="mt-8 max-w-md text-base leading-relaxed text-ink-soft md:text-lg"
         >
-          Building secure systems &amp; meaningful digital experiences.
+          {SITE.role}. Building secure systems &amp; meaningful digital
+          experiences.
         </motion.p>
 
         <motion.div
@@ -96,30 +102,42 @@ export function Hero() {
           transition={{ duration: 0.45, delay: 0.28, ease: [0.22, 1, 0.36, 1] }}
           className="mt-10 flex flex-wrap items-center gap-3"
         >
-          <a
-            href="#operations"
+          <button
+            onClick={open}
+            data-cursor
             className="group inline-flex h-11 items-center gap-3 border border-ink px-6 font-mono text-[11px] uppercase tracking-[0.25em] text-ink transition-colors duration-200 hover:bg-ink hover:text-background"
           >
-            View Projects
-            <span className="transition-transform duration-200 group-hover:translate-x-1">
-              →
+            Open Launcher
+            <span className="grid grid-cols-2 gap-[3px]">
+              {[...Array(4)].map((_, i) => (
+                <span
+                  key={i}
+                  className="size-1 bg-current transition-transform duration-200 group-hover:scale-125"
+                />
+              ))}
             </span>
-          </a>
-          <a
+          </button>
+          <Link
+            href="/operations"
+            className="group inline-flex h-11 items-center gap-3 border border-edge px-6 font-mono text-[11px] uppercase tracking-[0.25em] text-ink-soft transition-colors duration-200 hover:border-ink hover:text-ink"
+          >
+            View Operations
+          </Link>
+          <Link
             href={SITE.resume}
             className="inline-flex h-11 items-center gap-3 border border-edge px-6 font-mono text-[11px] uppercase tracking-[0.25em] text-ink-soft transition-colors duration-200 hover:border-ink hover:text-ink"
           >
             Resume
-          </a>
+          </Link>
         </motion.div>
 
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.5 }}
-          className="mt-12 font-mono text-[10px] uppercase tracking-[0.25em] text-ink-mute"
+          className="mt-14 font-mono text-[10px] uppercase tracking-[0.25em] text-ink-mute"
         >
-          Scroll
+          Navigate the grid — or press Ctrl+K
         </motion.p>
       </motion.div>
 

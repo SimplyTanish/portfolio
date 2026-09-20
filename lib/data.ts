@@ -1,20 +1,134 @@
 export const SITE = {
   name: "TORO",
   role: "Cybersecurity Student",
+  roles: ["Cybersecurity Student", "Systems Engineer", "Security Researcher"],
   base: "Mumbai, IN",
   coords: "19.0760° N / 72.8777° E",
+  timezone: "Asia/Kolkata",
+  codename: "ECLIPSE / BLACKSITE",
   email: "hello@toro.dev",
   github: "https://github.com/SimplyTanish",
   linkedin: "https://linkedin.com/in/toro",
   resume: "/resume",
 } as const;
 
-export const NAV_LINKS = [
-  { label: "Projects", href: "#operations" },
-  { label: "Research", href: "#archive" },
-  { label: "About", href: "#identity" },
-  { label: "Contact", href: "#contact" },
+export type App = {
+  id: string;
+  path: string;
+  index: string;
+  name: string;
+  meta: string;
+};
+
+export const APPS: App[] = [
+  {
+    id: "identity",
+    path: "/identity",
+    index: "01",
+    name: "Identity",
+    meta: "Profile · base · focus",
+  },
+  {
+    id: "operations",
+    path: "/operations",
+    index: "02",
+    name: "Operations",
+    meta: "Featured projects — classified",
+  },
+  {
+    id: "arsenal",
+    path: "/arsenal",
+    index: "03",
+    name: "Arsenal",
+    meta: "Tooling, by discipline",
+  },
+  {
+    id: "orbit",
+    path: "/orbit",
+    index: "04",
+    name: "Orbit",
+    meta: "Trajectory — past to next",
+  },
+  {
+    id: "archive",
+    path: "/archive",
+    index: "05",
+    name: "Archive",
+    meta: "Photography · library · journal",
+  },
+  {
+    id: "contact",
+    path: "/contact",
+    index: "06",
+    name: "Contact",
+    meta: "Channels — open a line",
+  },
+];
+
+export const UTILITIES = [
+  {
+    id: "resume",
+    path: "/resume",
+    name: "Resume",
+    meta: "Curriculum Vitae · print-ready",
+  },
 ] as const;
+
+export const NAV_ROUTES = ["/", "/identity", "/operations", "/arsenal", "/orbit", "/archive", "/contact", "/resume"];
+
+export const ROUTE_META: Record<
+  string,
+  { title: string; description: string; path?: string }
+> = {
+  "/": {
+    title: "Toro — Cybersecurity Portfolio",
+    description:
+      "Cybersecurity student from Mumbai building secure infrastructure, researching offensive security, and designing production-grade digital systems.",
+    path: "~/operator",
+  },
+  "/identity": {
+    title: "Identity",
+    description:
+      "Who operates this system — profile, background and focus of Toro, cybersecurity student based in Mumbai.",
+    path: "~/identity",
+  },
+  "/operations": {
+    title: "Featured Operations",
+    description:
+      "Selected projects and research — production systems, offensive security experiments, and open tooling.",
+    path: "~/operations",
+  },
+  "/arsenal": {
+    title: "Arsenal",
+    description:
+      "The toolset — offensive security, systems, development and research disciplines of Toro.",
+    path: "~/arsenal",
+  },
+  "/orbit": {
+    title: "Orbit",
+    description:
+      "A trajectory through cybersecurity — where Toro started, what is being built, and what comes next.",
+    path: "~/orbit",
+  },
+  "/archive": {
+    title: "Archive",
+    description:
+      "The personal side — monochrome photography, books that shaped the operator, and field notes.",
+    path: "~/archive",
+  },
+  "/contact": {
+    title: "Contact",
+    description:
+      "Open a channel — GitHub, LinkedIn, email and resume for Toro, Mumbai.",
+    path: "~/contact",
+  },
+  "/resume": {
+    title: "Resume",
+    description:
+      "Resume of Toro — cybersecurity student and systems engineer from Mumbai.",
+    path: "~/resume",
+  },
+};
 
 export const INTERESTS = [
   "Active Directory labs",
@@ -144,9 +258,11 @@ export const ARCHIVE = {
 } as const;
 
 export const CONSOLE_COMMANDS = [
-  { id: "whoami", label: "whoami", hint: "About the operator" },
-  { id: "projects", label: "projects", hint: "Featured operations" },
-  { id: "research", label: "research", hint: "Archive & field notes" },
+  { id: "whoami", label: "whoami", hint: "Open Identity" },
+  { id: "projects", label: "projects", hint: "Open Operations" },
+  { id: "arsenal", label: "arsenal", hint: "Open tooling" },
+  { id: "orbit", label: "orbit", hint: "Open trajectory" },
+  { id: "research", label: "research", hint: "Open Archive" },
   { id: "resume", label: "resume", hint: "Open CV" },
   { id: "contact", label: "contact", hint: "Open a channel" },
   { id: "clear", label: "clear", hint: "Reset the console" },

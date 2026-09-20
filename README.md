@@ -1,24 +1,27 @@
 # ECLIPSE / BLACKSITE — TORO
 
-> A premium, single-page portfolio for a cybersecurity student and systems
-> engineer. Dossier-grade, editorial, and aggressively monochrome.
+> A **portfolio OS** — a multi-page, application-style portfolio for a
+> cybersecurity student and systems engineer. Dossier-grade, editorial, and
+> aggressively monochrome.
 
 Monochrome as an identity, not a theme. Brutalist structure with editorial
 typography. A classified intelligence file masquerading as a luxury website —
 no green text, no matrix rain, no rgb glow.
 
----
+The navigation mirrors an operating system: a sparse desktop home, a
+**launcher grid** of dedicated pages, and a command palette. Every page is its
+own route. Nothing scrolls forever.
 
-## Preview
+![Toro — Cybersecurity Portfolio — Desktop](./preview.png)
 
-![Toro — Cybersecurity Portfolio](./preview.png)
+![Toro — Cybersecurity Portfolio — Operations](./preview-operations.png)
 
 ## Stack
 
-- **[Next.js 15](https://nextjs.org)** (App Router) — static-first, SSR + RSC
+- **[Next.js 15](https://nextjs.org)** (App Router) — static-first, per-route SSG
 - **TypeScript** — strict mode
 - **[Tailwind CSS v4](https://tailwindcss.com)** — CSS-first tokens
-- **[Framer Motion](https://motion.dev)** — restrained, precise motion
+- **[Framer Motion](https://motion.dev)** — restrained route + UI transitions
 - **[Lenis](https://github.com/darkroomengineering/lenis)** — buttery smooth scrolling
 - **[Geist](https://vercel.com/font)** — Geist Sans + Geist Mono (self-hosted via `next/font`)
 - **Lucide** — minimal iconography
@@ -36,32 +39,43 @@ Muted        #71717A
 
 No accent color. The absence of color is the identity.
 
-## Sections
+## Applications
 
-| Section | Code-name |
-| --- | --- |
-| Hero | `TORO` — signature crescent moon, parallax + bloom |
-| Identity | `01` — editorial statement, metadata rails |
-| Featured Operations | `02` — classified dossier cards |
-| Arsenal | `03` — tooling grid, no progress bars |
-| Orbit | `04` — hover-expanding trajectory nodes |
-| Archive | `05` — photography / library / journal |
-| Contact | `06` — quiet channels |
-| Hidden Console | `Ctrl+K` — command palette navigation |
+Each route is a self-contained page — opened from the launcher grid, navigable
+by command palette, and persistent nav/footer chrome on every route.
 
-## Hidden Console
+| Route | Application | Index |
+| --- | --- | --- |
+| `/` | **Operator** — desktop home, crescent moon, controls | `00` |
+| `/identity` | **Identity** — profile, base, focus | `01` |
+| `/operations` | **Operations** — classified dossier cards | `02` |
+| `/arsenal` | **Arsenal** — tooling grid, no progress bars | `03` |
+| `/orbit` | **Orbit** — hover-expanding trajectory | `04` |
+| `/archive` | **Archive** — photography / library / journal | `05` |
+| `/contact` | **Contact** — quiet channels | `06` |
+| `/resume` | **Resume** — utility, print-ready | `UT` |
+| `/operations/:slug` | Case files — per-operation detail pages | — |
 
-Press `Ctrl+K` (or `Cmd+K`). A command palette opens — a quiet second way to
-navigate the site.
+## Navigation
+
+- **Launcher** — a full-screen application grid. Open it from the nav bar, the
+  footer, or the desktop home.
+- **Command palette** — press `Ctrl+K` (or `Cmd+K`).
 
 ```
-> whoami        → Identity
-> projects      → Featured Operations
-> research      → Archive
-> resume        → Resume
-> contact       → Contact
+> whoami        → /identity
+> projects      → /operations
+> arsenal       → /arsenal
+> orbit         → /orbit
+> research      → /archive
+> resume        → /resume
+> contact       → /contact
 > clear         → reset console
 ```
+
+- Persistent chrome — top navigation (logo, coordinates, launcher) and a
+  status-bar footer with IST clock render on every route. Route changes animate
+  with a restrained fade + rise.
 
 ## Getting Started
 
@@ -71,7 +85,7 @@ npm run dev       # http://localhost:3000
 ```
 
 ```bash
-npm run build     # production build
+npm run build     # production build (all routes SSG)
 npm run start     # serve production build
 npm run lint      # eslint
 ```
@@ -80,21 +94,22 @@ npm run lint      # eslint
 
 Your content lives in **`lib/data.ts`** — single source of truth:
 
-- Site identity, coordinates, GitHub / LinkedIn / Email / Resume URLs
-- Navigation links, interests
+- Site identity, coordinates, timezone, GitHub / LinkedIn / Email / Resume URLs
+- The application grid (`APPS`, `UTILITIES`) and per-route metadata
 - Featured Operations, Arsenal, Orbit nodes, Archive collections
 - Console commands
 
 Edit the data, keep the silence. Swap placeholder imagery inside `public/img/`
 (`mumbai.svg`, `brutalist.svg`, `editorial.svg`) for real work when ready.
 
-Design tokens are in `app/globals.css` (`@theme`). Typography, motion and
-interaction details are per-component under `components/`.
+Design tokens are in `app/globals.css` (`@theme`). Routes live in `app/` —
+one folder per application. Shared chrome is in `components/` (nav, footer,
+launcher, console, cursor).
 
 ## Performance
 
-- Static prerendering for every route
-- 0 CLS, sub-200 ms LCP in testing
+- Static prerendering for every route — zero per-request work
+- 0 CLS, sub-300 ms LCP in testing
 - Self-hosted fonts — no external requests
 - `prefers-reduced-motion` respected end to end
 

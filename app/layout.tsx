@@ -3,9 +3,13 @@ import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
 import "./globals.css";
 import { ScrollProvider } from "@/components/scroll-provider";
+import { LauncherProvider } from "@/components/launcher";
 import { Cursor } from "@/components/cursor";
 import { Noise } from "@/components/noise";
+import { Nav } from "@/components/nav";
+import { Footer } from "@/components/footer";
 import { Console } from "@/components/console";
+import { PageShell } from "@/components/page-shell";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://toro.dev"),
@@ -64,8 +68,12 @@ export default function RootLayout({
         <Noise />
         <ScrollProvider>
           <Cursor />
+          <LauncherProvider>
+            <Nav />
+            <PageShell>{children}</PageShell>
+            <Footer />
+          </LauncherProvider>
           <Console />
-          {children}
         </ScrollProvider>
       </body>
     </html>

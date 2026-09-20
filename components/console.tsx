@@ -2,16 +2,19 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/navigation";
 import { CONSOLE_COMMANDS, SITE } from "@/lib/data";
 
 type CommandId = (typeof CONSOLE_COMMANDS)[number]["id"];
 
 const ROUTES: Record<string, string> = {
-  whoami: "#identity",
-  projects: "#operations",
-  research: "#archive",
-  contact: "#contact",
-  resume: SITE.resume,
+  whoami: "/identity",
+  projects: "/operations",
+  arsenal: "/arsenal",
+  orbit: "/orbit",
+  research: "/archive",
+  resume: "/resume",
+  contact: "/contact",
 };
 
 export function Console() {
@@ -20,6 +23,7 @@ export function Console() {
   const [index, setIndex] = useState(0);
   const [echo, setEcho] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const router = useRouter();
 
   const filtered = CONSOLE_COMMANDS.filter((c) =>
     c.label.toLowerCase().includes(query.trim().toLowerCase()),
@@ -43,26 +47,17 @@ export function Console() {
       }
       const route = ROUTES[id];
       if (route) {
-        setEcho(`→ navigating to ${route}`);
-        const scroller = (window as unknown as {
-          __toroScrollTo?: (t: string) => boolean;
-        }).__toroScrollTo;
-        const ok = scroller ? scroller(route) : false;
+        setEcho(`→ opening ${route}`);
         window.setTimeout(() => {
           close();
-          if (!ok) {
-            const [path, hash] = route.split("#");
-            if (hash) {
-              window.location.href = path ? route : `/${route}`;
-            }
-          }
+          router.push(route);
         }, 220);
       } else {
         setEcho(`unknown command: ${raw.trim() || "∅"}`);
         setTimeout(() => setEcho(""), 1600);
       }
     },
-    [close],
+    [close, router],
   );
 
   useEffect(() => {
@@ -121,7 +116,7 @@ export function Console() {
           >
             <div className="flex items-center justify-between border-b border-edge-soft px-5 py-3">
               <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-ink-mute">
-                ECLIPSE CONSOLE — V0.1
+                ECLIPSE CONSOLE — V0.2
               </span>
               <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink-mute">
                 esc /
@@ -140,7 +135,7 @@ export function Console() {
                   setQuery(e.target.value);
                   setIndex(0);
                 }}
-                placeholder="type a command…"
+                placeholder="type a command — try whoami"
                 className="w-full bg-transparent font-mono text-sm text-ink outline-none placeholder:text-ink-mute/50"
                 autoComplete="off"
                 spellCheck={false}
@@ -170,7 +165,7 @@ export function Console() {
                 ))
               ) : (
                 <p className="px-3 py-4 font-mono text-xs text-ink-mute">
-                  no matching command — try &quot;whoami&quot;
+                  no matching command
                 </p>
               )}
             </div>

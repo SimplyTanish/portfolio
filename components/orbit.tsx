@@ -2,19 +2,13 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { SectionHead } from "@/components/section-head";
 import { Reveal } from "@/components/reveal";
 import { ORBIT_NODES } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
-export function Orbit() {
+export function OrbitTrajectory() {
   return (
-    <section
-      id="orbit"
-      className="mx-auto max-w-[1200px] px-6 py-28 md:px-10 md:py-40"
-    >
-      <SectionHead index="(04)" title="Orbit" />
-
+    <section className="mx-auto max-w-[1200px] px-6 pb-28 md:px-10 md:pb-40">
       <Reveal className="mt-14">
         <p className="max-w-md leading-relaxed text-ink-soft">
           A trajectory, not a timeline. Three positions so far — each one

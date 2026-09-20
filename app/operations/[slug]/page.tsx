@@ -34,7 +34,7 @@ export default async function OperationPage({
   return (
     <main className="mx-auto max-w-[900px] px-6 pb-32 pt-32 md:px-10">
       <Link
-        href="/#operations"
+        href="/operations"
         className="inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-[0.25em] text-ink-mute transition-colors duration-200 hover:text-ink"
       >
         <ArrowLeft className="size-4" />

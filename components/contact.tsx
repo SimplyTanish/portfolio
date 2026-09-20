@@ -1,4 +1,3 @@
-import { SectionHead } from "@/components/section-head";
 import { Reveal } from "@/components/reveal";
 import { SITE } from "@/lib/data";
 import { ArrowUpRight } from "lucide-react";
@@ -10,14 +9,9 @@ const CHANNELS = [
   { label: "Resume", href: SITE.resume, meta: "PDF / print" },
 ] as const;
 
-export function Contact() {
+export function ContactChannels() {
   return (
-    <section
-      id="contact"
-      className="mx-auto max-w-[1200px] px-6 py-28 md:px-10 md:py-40"
-    >
-      <SectionHead index="(06)" title="Contact" />
-
+    <section className="mx-auto max-w-[1200px] px-6 pb-32 md:px-10 md:pb-40">
       <Reveal className="mt-16">
         <h2 className="max-w-4xl text-[clamp(2.4rem,7vw,5.5rem)] font-medium leading-[0.95] tracking-[-0.04em] text-ink">
           Let&apos;s build something{" "}

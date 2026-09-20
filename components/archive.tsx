@@ -1,18 +1,12 @@
 import Image from "next/image";
-import { SectionHead } from "@/components/section-head";
 import { Reveal } from "@/components/reveal";
 import { ARCHIVE } from "@/lib/data";
 
-export function Archive() {
+export function ArchiveCollections() {
   return (
-    <section
-      id="archive"
-      className="border-y border-edge-soft bg-surface"
-    >
-      <div className="mx-auto max-w-[1200px] px-6 py-28 md:px-10 md:py-40">
-        <SectionHead index="(05)" title="Archive" />
-
-        <div className="mt-14 grid grid-cols-1 gap-10 lg:grid-cols-3">
+    <section className="border-y border-edge-soft bg-surface">
+      <div className="mx-auto max-w-[1200px] px-6 pb-28 md:px-10 md:pb-40">
+        <div className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-3">
           {/* photography */}
           <Reveal>
             <div className="flex h-full flex-col">

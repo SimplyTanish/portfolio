@@ -1,16 +1,10 @@
-import { SectionHead } from "@/components/section-head";
 import { Reveal } from "@/components/reveal";
 import { OPERATIONS } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
-export function Operations() {
+export function OperationsGrid() {
   return (
-    <section
-      id="operations"
-      className="mx-auto max-w-[1200px] px-6 py-28 md:px-10 md:py-40"
-    >
-      <SectionHead index="(02)" title="Featured Operations" />
-
+    <section className="mx-auto max-w-[1200px] px-6 pb-28 md:px-10 md:pb-40">
       <div className="mt-14 flex flex-col gap-6">
         {OPERATIONS.map((op, i) => (
           <Reveal key={op.slug} delay={0.04 * i}>

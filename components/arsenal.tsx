@@ -1,17 +1,11 @@
-import { SectionHead } from "@/components/section-head";
 import { Reveal } from "@/components/reveal";
 import { ARSENAL } from "@/lib/data";
 
-export function Arsenal() {
+export function ArsenalGrid() {
   return (
-    <section
-      id="arsenal"
-      className="border-y border-edge-soft bg-surface"
-    >
-      <div className="mx-auto max-w-[1200px] px-6 py-28 md:px-10 md:py-40">
-        <SectionHead index="(03)" title="Arsenal" />
-
-        <div className="mt-14 grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-4">
+    <section className="border-y border-edge-soft bg-surface">
+      <div className="mx-auto max-w-[1200px] px-6 pb-28 md:px-10 md:pb-40">
+        <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-2 xl:grid-cols-4">
           {ARSENAL.map((group, gi) => (
             <Reveal key={group.category} delay={0.05 * gi}>
               <div>
